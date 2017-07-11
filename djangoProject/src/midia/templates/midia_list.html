@@ -23,7 +23,7 @@ Listagem de midiasocial
 </tr>
 </thead>
 <tbody>
-{% for midia in lista_midias %}
+{% for midia in registers %}
   <tr>
     <td><a href="{% url 'update' midia.id %}">{{ midia.analista }}</a></td>
     <td>{{ midia.linkDenuncia }}</td>
@@ -34,6 +34,31 @@ Listagem de midiasocial
 {% endfor %}
 </tbody>
 </table>
+
+
+    {% if registers.has_other_pages %}
+        <ul class="pagination">
+            {% if registers.has_previous %}
+                <li><a href="?page={{ registers.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in registers.paginator.page_range %}
+                {% if registers.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if registers.has_next %}
+                <li><a href="?page={{ registers.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+
+
 
 
 <br>

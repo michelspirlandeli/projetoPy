@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Listagem de Phishing
+{% endblock title %}
+
+{% block tituloPagina %}
+<center>Listagem Phishing</center>
+{% endblock tituloPagina %}
+
+{% block content %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Analista</th>
+      <th>Primeira Notificação</th>
+      <th>Origem Denúncia</th>
+      <th>Identificado Axur</th>
+      <th>Ticket Axur</th>
+      <th>Origem Provedor</th>
+      <th>Provedor Responsavel</th>
+      <th>Url Falsa</th>
+      <th>Dominio Atacado</th>
+      <th>tipoTratamento</th>
+      <th>Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for phishing in lista %}
+    <tr>
+      <td>{{ phishing.analista }}</td>
+      <td>{{ phishing.primeiraNotificacao }}</td>
+      <td>{{ phishing.origemDenuncia }}</td>
+      <td>{{ phishing.identificadoAxur }}</td>
+      <td>{{ phishing.ticketAxur }}</td>
+      <td>{{ phishing.origemProvedor }}</td>
+      <td>{{ phishing.provedorResponsavel }}</td>
+      <td>{{ phishing.urlFalsa }}</td>
+      <td>{{ phishing.dominioAtacado }}</td>
+      <td>{{ phishing.tipoTratamento }}</td>
+      <td>
+        <a href="{% url 'phishing_edit' pk=phishing.pk %}">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </a>
+        <a href="{% url 'phishing_remove' pk=phishing.pk %}">
+          <span class="glyphicon glyphicon-trash"></span>
+        </a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'phishing_new' %}">
+<button type="submit" class="btn btn-primary">
+    Cadastrar
+</button>
+</a>
+
+{% endblock content %}
+
+

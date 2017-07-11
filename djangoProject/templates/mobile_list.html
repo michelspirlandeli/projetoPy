@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Listagem de mobile
+{% endblock title %}
+
+{% block tituloPagina %}
+<center>Listagem de mobile</center>
+{% endblock tituloPagina %}
+
+{% block content %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Analista</th>
+      <th>Origem Denúncia</th>
+      <th>Identificado pela Axur</th>
+      <th>Ticket da Axur</th>
+      <th>Url App</th>
+      <th>Email Denúncia</th>
+      <th>Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for in object_list %}
+    <tr>
+      <td>{{ mobile.analista }}</td>
+      <td>{{ mobile.origemDenuncia }}</td>
+      <td>{{ mobile.identificadoAxur }}</td>
+      <td>{{ mobile.ticketAxur }}</td>
+      <td>{{ mobile.urlApp }}</td>
+      <td>{{ mobile.emailDenuncia }}</td>
+      <td>
+        <a href="{% url 'mobile_edit' pk=mobile.pk %}">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </a>
+        <a href="{% url 'mobile_remove' pk=mobile.pk %}">
+          <span class="glyphicon glyphicon-trash"></span>
+        </a>
+      </td>
+    </tr>
+    <div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?page={{ object_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?page={{ object_list.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+    </div>
+  {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'mobile_new' %}">
+<button type="submit" class="btn btn-primary">
+    Cadastrar
+</button>
+</a>
+
+{% endblock content %}
+
+

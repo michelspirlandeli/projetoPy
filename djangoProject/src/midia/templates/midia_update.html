@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}
+    Alterar de midiasocial
+{% endblock title %}
+
+{% block tituloPagina %}
+    Alter de midiasocial
+{% endblock tituloPagina %}
+
+{% block content %}
+
+{{ object }}
+       <br>
+       {{ object.analista }}
+       <br>
+
+       <form method="post">
+           {% csrf_token %}
+           {{ form.as_p }}
+           <button type="submit" name="button">Salvar</button>
+       </form>
+
+       <a href="{% url 'list' %}">Voltar</a>
+       <a href="{% url 'delete' object.id %}">Deletar</a>
+{% endblock content %}

@@ -9,12 +9,13 @@ Remoção de midiasocial
 {% endblock tituloPagina %}
 
 {% block content %}
+
 <form method="post">{% csrf_token %}
-    <h4>Tem certeza que deseja excluir o registro "{{ midia.titulo }}"?</h4>
-    <br/>
-<button type="submit" class="btn btn-primary">
-    Remover
-</button>
-</form>
+            <p>
+                Você tem certeza que deseja deletar {{ object }}?
+            </p>
+            <button type="submit" name="button">Tenho certeza!</button>
+
+        </form>
 
 {% endblock content %}

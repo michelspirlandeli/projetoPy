@@ -8,12 +8,7 @@
 {% endblock tituloPagina %}
 
 {% block content %}
-
-{{ object }}
-       <br>
-       {{ object.analista }}
-       <br>
-
+        {{ object.analista }}
        <form method="post">
            {% csrf_token %}
            {{ form.as_p }}

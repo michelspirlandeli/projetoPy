@@ -10,12 +10,32 @@ Listagem de midiasocial
 
 {% block content %}
 
-<ol>
-    {% for midia in lista_midias %}
-        <li><a href="{% url 'update' midia.id %}">{{ midia }}</a></li>
-    {% endfor %}
 
-</ol>
+
+<table class="table table-bordered">
+<thead>
+<tr>
+  <th>Analista</th>
+  <th>Link denuncia</th>
+  <th>denuncia</th>
+  <th>ticket Axur</th>
+  <th>Numero Facebook</th>
+</tr>
+</thead>
+<tbody>
+{% for midia in lista_midias %}
+  <tr>
+    <td><a href="{% url 'update' midia.id %}">{{ midia.analista }}</a></td>
+    <td>{{ midia.linkDenuncia }}</td>
+    <td>{{ midia.denuncia }}</td>
+    <td>{{ midia.ticketAxur }}</td>
+    <td>{{ midia.numeroFacebook }}</td>
+  </tr>
+{% endfor %}
+</tbody>
+</table>
+
+
 <br>
 <a href="{% url 'create' %}">Nova midia</a>
 {% endblock content %}

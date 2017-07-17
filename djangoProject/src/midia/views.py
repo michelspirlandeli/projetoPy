@@ -1,70 +1,48 @@
 from django.shortcuts import render
 from .models import Midia
-#from django.contrib import messages
-from django.forms import ModelForm
-
 from .forms import MidiaForm
-from django.shortcuts import render, redirect, get_object_or_404, render_to_response
-from django.http import HttpResponseRedirect
+
+from django.shortcuts import render, redirect
+
+# Pagination
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-def midia_list(request):
-    queryset_list = Midia.objects.all()
-    paginator = Paginator(queryset_list, 5)
-    page_request_var = "página"
-    page = request.GET.get(page_request_var)
-    context = {
-        "title": "Lista",
-        "page_request_var": page_request_var,
-        "object_list": queryset,
-    }
+def midia(request, template_name='midia_list.html'):
+    lista_midias = Midia.objects.all()
+    paginator = Paginator(lista_midias, 5) #Mostra 5 registros por página
+
+    page = request.GET.get('page', 1)
     try:
-        queryset = paginator.page(page)
+        registers = paginator.page(page)
     except PageNotAnInteger:
-        queryset = paginator.page(1)
+        registers = paginator.page(1)
     except EmptyPage:
-        queryset = paginator.page(paginator.num_pages)    
-    return render(request, "midia_list.html", context)
+        registers = paginator.page(paginator.num_pages)
 
 
-def midia_new(request):
+    return render(request, template_name, { 'registers': registers })
+
+def midia_new(request, template_name='midia_create.html'):
     form = MidiaForm(request.POST or None)
-    context = {
-            "form": form,
-    }
     if form.is_valid():
-        instance = form.save(commit=False)
-        instance.user = request.user
-        print (form.cleaned_data.get("analista"))
-        instance.save()
-        # message success
-        #messages.success(request, "Criado com sucesso!")
-        return HttpResponseRedirect(instance.get_absolute_url())
-        
-    return render(request, "midia_form.html", context)
+        form.save()
+        return redirect('list')
+    return render(request, template_name, {'form':form})
 
+def midia_edit(request, pk, template_name='midia_update.html'):
+    midia = Midia.objects.get(id=pk)
 
-
-
-def midia_edit(request, slug=None):
-    instance = get_object_or_404(Midia, slug=slug)
-    form = MidiaForm(request.POST or None, instance=instance)
-    context = {
-        "title": instance.title,
-        "instance": instance,
-        "form": form,
-    }
+    form = MidiaForm(request.POST or None, instance=midia)
     if form.is_valid():
-        instance = form.save(commit=False)
-        instance.save()
-        #messages.success(request)
-        return HttpResponseRedirect(instance.get_absolute_url())
-    
-    return render(request, "midia_form.html", context)
+        form.save()
+        return redirect('list')
+    return render(request, template_name, {'object': midia, 'form': form})
 
-def midia_remove(request, slug=None):
-    instance = get_object_or_404(Midia, slug=slug)
-    if request.method == "POST":
+
+def midia_remove(request, pk, template_name='midia_delete.html'):
+    midia = Midia.objects.get(pk=pk)
+
+    if request.method== 'POST':
         midia.delete()
         return redirect('list')
-    return render(request, 'midia_delete.html', {'midia': midia})
+    return render(request, template_name, {'object': midia})

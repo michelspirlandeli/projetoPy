@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Listagem de Mobile
+{% endblock title %}
+
+{% block tituloPagina %}
+<center>Listagem Mobile Social</center>
+{% endblock tituloPagina %}
+
+{% block content %}
+
+
+<a class="btn waves-effect waves-light" type="submit" name="action" href="{% url 'create_mobile' %}">
+  Nova mobile
+</a><br />
+<table class="striped">
+<thead>
+<tr>
+  <th>Id</th>
+  <th>Analista</th>
+  <th>Origem denuncia</th>
+  <th>Identificado Axur</th>
+  <th>Ticket Axur</th>
+  <th>Url App</th>
+  <th>Email denúncia</th>
+  <th>Ações</th>
+</tr>
+</thead>
+<tbody>
+{% for mobile in registers %}
+  <tr>
+    <td class="id">{{ mobile.id }}</td>
+    <td class="analista">{{ mobile.analista }}</a></td>
+    <td class="origemDenuncia">{{ mobile.origemDenuncia }}</td>
+    <td class="identificadoAxur">{{ mobile.identificadoAxur }}</td>
+    <td class="ticketAxur">{{ mobile.ticketAxur }}</td>
+    <td class="urlApp">{{ mobile.urlApp }}</td>
+    <td class="emailDenuncia">{{ mobile.emailDenuncia }}</td>
+    <td class=""><a class="btn waves-effect waves-light" type="submit" name="action" href="{% url 'update_mobile' mobile.id %}">Alterar</a>
+  </tr>
+{% endfor %}
+</tbody>
+</table>
+<center>
+    {% if registers.has_other_pages %}
+        <ul class="pagination">
+            {% if registers.has_previous %}
+                <li><a href="?page={{ registers.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in registers.paginator.page_range %}
+                {% if registers.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if registers.has_next %}
+                <li><a href="?page={{ registers.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+</center>
+
+<br><br /><br />
+
+{% endblock content %}

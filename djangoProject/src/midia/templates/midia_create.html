@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}
+    Cadastro Midia Social
+{% endblock title %}
+
+{% block tituloPagina %}
+    <center>Cadastro Midias Social</center>
+{% endblock tituloPagina %}
+
+{% block content %}
+<center>
+<form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+			<button class="btn waves-effect waves-light" type="submit" name="button">Salvar</button>
+			<a class="waves-effect waves-light btn" href="{% url 'list' %}">Voltar</a><br /><br />
+        </form>
+</center>
+{% endblock content %}

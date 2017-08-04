@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block javascript %}
+    <script src="{% static 'js/mobile.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+
+    <h1 class="page-header">Mobile</h1>
+
+    <p>
+        <button type="button"
+                class="btn btn-primary js-create-mobile"
+                data-url="{% url 'mobile_create' %}">
+                <span class="glyphicon glyphicon-plus"></span>
+                Nova Mobile
+        </button>
+    </p>
+
+    <table class="table table-striped" id="mobile_table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Analista</th>
+                <th>Origem denuncia</th>
+                <th>Identificado Axur</th>
+                <th>Ticket Axur</th>
+                <th>Url App</th>
+                <th>Email denúncia</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% include 'listaMobiles.html' %}
+        </tbody>
+    </table>
+
+
+    <div class="modal fade" id="modal-mobile">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    
+    {% include 'pagination.html' %}
+
+{% endblock %}

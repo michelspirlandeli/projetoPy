@@ -1,0 +1,32 @@
+{% for phishing in registers %} <!-- for nomeFuncao in nomeVariavel que recebe os dados -->
+    <tr>
+        <td>{{ phishing.id }}</td>
+        <td>{{ phishing.analista }}</a></td>
+        <td>{{ phishing.primeiraNotificacao }}</td>
+        <td>{{ phishing.origemDenuncia }}</td>
+        <td>{{ phishing.identificadoAxur }}</td>
+        <td>{{ phishing.ticketAxur }}</td>
+        <td>{{ phishing.origemProvedor }}</td>
+        <td>{{ phishing.provedorResponsavel }}</td>
+        <td>{{ phishing.urlFalsa }}</td>
+        <td>{{ phishing.dominioAtacado }}</td>
+        <td>{{ phishing.tipoTratamento }}</td>
+        <td>{{ phishing.status }}</td>
+        <td>
+            <button type="button"
+                    class="btn btn-warning btn-sm js-update-phishing"
+                    data-url="{% url 'phishing_update' phishing.id %}">
+                    <span class="glyphicon glyphicon-pencil"></span> Alterar
+            </button>
+            <button type="button"
+                    class="btn btn-danger btn-sm js-delete-phishing"
+                    data-url="{% url 'phishing_delete' phishing.id %}">
+                    <span class="glyphicon glyphicon-trash"></span> Deletar
+            </button>
+        </td>
+    </tr>
+{% empty %}
+    <tr>
+        <td colspan="7" class="text-center bg-warning">Não há phishing cadastradas</td>
+    </tr>
+{% endfor %}

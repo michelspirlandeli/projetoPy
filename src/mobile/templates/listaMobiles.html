@@ -1,0 +1,29 @@
+
+{% for mobile in registers %} <!-- for nomeFuncao in nomeVariavel que recebe os dados -->
+  <tr>
+    <td>{{ mobile.id }}</td>
+    <td>{{ mobile.analista }}</a></td>
+    <td>{{ mobile.origemDenuncia }}</td>
+    <td>{{ mobile.identificadoAxur }}</td>
+    <td>{{ mobile.ticketAxur }}</td>
+    <td>{{ mobile.urlApp }}</td>
+    <td>{{ mobile.emailDenuncia }}</td>
+    <td>{{ mobile.status }}</td>
+    <td>
+            <button type="button"
+                    class="btn btn-warning btn-sm js-update-mobile"
+                    data-url="{% url 'mobile_update' mobile.id %}">
+                    <span class="glyphicon glyphicon-pencil"></span> Alterar
+            </button></td><td>
+            <button type="button"
+                    class="btn btn-danger btn-sm js-delete-mobile"
+                    data-url="{% url 'mobile_delete' mobile.id %}">
+                    <span class="glyphicon glyphicon-trash"></span> Deletar
+            </button>
+        </td>
+    </tr>
+{% empty %}
+    <tr>
+        <td colspan="7" class="text-center bg-warning">Não há mobiles castradas</td>
+    </tr>
+{% endfor %}

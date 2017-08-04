@@ -1,0 +1,36 @@
+<center>
+<nav aria-label="Page navigation example">
+ <span class="step-links">
+  <ul class="pagination">
+       {% if registers.has_previous %}
+            <li><a id="prev" href="?page={{ registers.previous_page_number }}">Anterior</a></li>
+        {% else %}
+                <li class="disabled"><span>Anterior</span></li>
+        {% endif %}
+
+        {% for i in page_range %}
+                {% if registers.number == i %}
+                    <li class="active">
+                        <a href="?page={{ i }}">{{ i }} 
+                            <span class="sr-only"></span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="?page={{ i }}">
+                            {{ i }}
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+
+      {% if registers.has_next %}
+            <li><a id="next" href="?page={{ registers.next_page_number }}">Próximo</a></li>
+        {% else %}
+            <li class="disabled"><span>Próximo</span></li>
+        {% endif %}
+
+  </ul>
+</nav>
+</center>

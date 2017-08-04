@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block javascript %}
+    <script src="{% static 'js/phishings.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+
+    <h1 class="page-header">Phishing</h1>
+
+    <p>
+        <button type="button"
+                class="btn btn-primary js-create-phishing"
+                data-url="{% url 'phishing_create' %}">
+                <span class="glyphicon glyphicon-plus"></span>
+                Nova Phishing
+        </button>
+    </p>
+
+    <table class="table table-striped" id="phishing_table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Analista</th>
+                <th>Primeira Notificação</th>
+                <th>Origem Denúncia</th>
+                <th>Identificado Axur</th>
+                <th>Ticket Axur</th>
+                <th>Origem Provedor</th>
+                <th>Provedor Responsavel</th>
+                <th>Url Falsa</th>
+                <th>Dominio Atacado</th>
+                <th>Tipo Tratamento</th>
+                <th>Status</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% include 'listaPhishings.html' %}
+        </tbody>
+    </table>
+
+
+    <div class="modal fade" id="modal-phishing">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    
+    {% include 'pagination.html' %}
+
+{% endblock %}

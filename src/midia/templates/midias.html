@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block javascript %}
+    <script src="{% static 'js/midias.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+
+    
+    <h1 class="page-header">Mídias</h1>
+
+    <p>
+        <button type="button"
+                class="btn btn-primary js-create-midia"
+                data-url="{% url 'midia_create' %}">
+                <span class="glyphicon glyphicon-plus"></span>
+                Nova Mídia
+        </button>
+    </p>
+
+    <table class="table table-striped" id="midia_table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Analista</th>
+                <th>Denuncia</th>
+                <th>Link Denuncia</th>
+                <th>Ticket Axur</th>
+                <th>Numero Facebook</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% include 'listaMidias.html' %}
+        </tbody>
+    </table>
+
+
+    <div class="modal fade" id="modal-midia">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    
+    {% include 'pagination.html' %}
+
+{% endblock %}

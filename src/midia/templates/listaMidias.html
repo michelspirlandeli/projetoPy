@@ -1,0 +1,27 @@
+{% for midia in registers %} <!-- for nomeFuncao in nomeVariavel que recebe os dados -->
+    <tr>
+        <td>{{ midia.id }}</td>
+        <td>{{ midia.analista }}</td>
+        <td>{{ midia.denuncia }}</td>
+        <td>{{ midia.linkDenuncia }}</td>
+        <td>{{ midia.ticketAxur }}</td>
+        <td>{{ midia.numeroFacebook }}</td>
+        <td>{{ midia.status }}</td>
+        <td>
+            <button type="button"
+                    class="btn btn-warning btn-sm js-update-midia"
+                    data-url="{% url 'midia_update' midia.id %}">
+                    <span class="glyphicon glyphicon-pencil"></span> Alterar
+            </button>
+            <button type="button"
+                    class="btn btn-danger btn-sm js-delete-midia"
+                    data-url="{% url 'midia_delete' midia.id %}">
+                    <span class="glyphicon glyphicon-trash"></span> Deletar
+            </button>
+        </td>
+    </tr>
+{% empty %}
+    <tr>
+        <td colspan="7" class="text-center bg-warning">Não há mídias cadastradas</td>
+    </tr>
+{% endfor %}

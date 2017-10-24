@@ -34,13 +34,12 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
-    'bootstrap3',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'src.midia',
-] 
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

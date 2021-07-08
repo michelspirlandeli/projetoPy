@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}
+    Alterar de mobile
+{% endblock title %}
+
+{% block tituloPagina %}
+    Alter de mobile
+{% endblock tituloPagina %}
+
+{% block content %}
+        {{ object.analista }}
+        <center><form method="post">
+           {% csrf_token %}
+           {{ form.as_p }}
+          <button class="btn waves-effect waves-light" type="submit" name="action">Salvar</button>
+         
+           <a class="waves-effect waves-light btn" href="{% url 'list_mobile' %}">Voltar</a>
+           <a  class="waves-effect waves-light btn" href="{% url 'delete_mobile' object.id %}">Deletar</a>
+       </form></center><br /><br />
+{% endblock content %}

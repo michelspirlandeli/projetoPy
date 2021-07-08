@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Listagem de Phishing
+{% endblock title %}
+
+{% block tituloPagina %}
+<center>Listagem Phishing</center>
+{% endblock tituloPagina %}
+
+{% block content %}
+<a class="btn waves-effect waves-light" type="submit" name="action" href="{% url 'create_phishing' %}">
+  Nova mobile
+</a><br />
+<table class="striped">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Analista</th>
+      <th>Primeira Notificação</th>
+      <th>Origem Denúncia</th>
+      <th>Identificado Axur</th>
+      <th>Ticket Axur</th>
+      <th>Origem Provedor</th>
+      <th>Provedor Responsavel</th>
+      <th>Url Falsa</th>
+      <th>Dominio Atacado</th>
+      <th>Tipo Tratamento</th>
+      <th>Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for phishing in registers %}
+  <tr>
+      <td class="id">{{ phishing.id }}</td>
+      <td class="analista">{{ phishing.analista }}</a></td>
+      <td class="primeiraNotificacao">{{ phishing.primeiraNotificacao }}</td>
+      <td class="origemDenuncia">{{ phishing.origemDenuncia }}</td>
+      <td class="identificadoAxur">{{ phishing.identificadoAxur }}</td>
+      <td class="ticketAxur">{{ phishing.ticketAxur }}</td>
+      <td class="origemProvedor">{{ phishing.origemProvedor }}</td>
+      <td class="provedorResponsavel">{{ phishing.provedorResponsavel }}</td>
+      <td class="urlFalsa">{{ phishing.urlFalsa }}</td>
+      <td class="dominioAtacado">{{ phishing.dominioAtacado }}</td>
+      <td class="tipoTratamento">{{ phishing.tipoTratamento }}</td>
+      <td class=""><a class="btn waves-effect waves-light" type="submit" name="action" href="{% url 'update_phishing' phishing.id %}">Alterar</a>
+      <td>
+     {% endfor %}
+</tbody>
+</table>
+<center>
+    {% if registers.has_other_pages %}
+        <ul class="pagination">
+            {% if registers.has_previous %}
+                <li><a href="?page={{ registers.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in registers.paginator.page_range %}
+                {% if registers.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if registers.has_next %}
+                <li><a href="?page={{ registers.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+</center>
+
+<br><br /><br />
+
+{% endblock content %}
+
+
+

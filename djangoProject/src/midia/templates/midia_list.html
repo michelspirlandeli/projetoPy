@@ -1,73 +1,85 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 {% block title %}
-Listagem de midiasocial
+Listagem Midia Social
 {% endblock title %}
 
 {% block tituloPagina %}
-<center>Listagem midia social</center>
+<center>Listagem Midia Social</center>
 {% endblock tituloPagina %}
 
 {% block content %}
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Analista</th>
-      <th>Origem Denúncia</th>
-      <th>Link Denuncia</th>
-      <th>Ticket Axur</th>
-      <th>Numero Facebook</th>
-      <th>Ação</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for obj in object_list %}
-    <tr>
-      <td>{{ midia.analista }}</td>
-      <td>{{ midia.denuncia }}</td>
-      <td>{{ midia.linkDenuncia }}</td>
-      <td>{{ midia.ticketAxur }}</td>
-      <td>{{ midia.numeroFacebook }}</td>
-      <td>
-       <!-- <a href="{% url 'update' pk=midia.pk %}">
-          <span class="glyphicon glyphicon-pencil"></span>
-        </a> -->
-        <a href="{% url 'delete' instance.id %}">
-          <span class="glyphicon glyphicon-trash"></span>
-        </a>
-      </td>
-    </tr>
 
-
-
-     <div class="pagination">
-    <span class="step-links">
-        {% if object_list.has_previous %}
-            <a href="?page={{ object_list.previous_page_number }}">previous</a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
-        </span>
-
-        {% if object_list.has_next %}
-            <a href="?page={{ object_list.next_page_number }}">next</a>
-        {% endif %}
-    </span>
-    </div>
-
-
-    
-  {% endfor %}
-  </tbody>
-</table>
-<a href="{% url 'create' %}">
-<button type="submit" class="btn btn-primary">
-    Cadastrar
-</button>
+<a class="btn waves-effect waves-light" type="submit" name="action" href="{% url 'create' %}">
+  Nova midia
 </a>
+<table class="striped">
+<thead>
+<tr>
+  <th>Id</th>
+  <th>Analista</th>
+  <th>Link denuncia</th>
+  <th>Denuncia</th>
+  <th>Ticket Axur</th>
+  <th>Numero Facebook</th>
+  <th>Ações</th>
+</tr>
+</thead>
+<tbody>
+{% for midia in registers %}
+  <tr>
+    <td class="id">{{ midia.id }}</td>
+    <td class="analista">{{ midia.analista }}</td>
+    <td class="linkDenuncia">{{ midia.linkDenuncia }}</td>
+    <td class="denuncia">{{ midia.denuncia }}</td>
+    <td class="ticketAxur">{{ midia.ticketAxur }}</td>
+    <td class="numeroFacebook">{{ midia.numeroFacebook }}</td>
+    <td ><a class="btn waves-effect waves-light" type="submit" name="action" href="{% url 'update' midia.id %}">Alterar</a></td>
+  </tr>
+{% endfor %}
+</tbody>
+</table>
+
+
+
+<center>
+     <ul class="pagination">
+     <span class="step-links">
+        {% if registers.has_previous %}
+            <li><a id="prev" href="?page={{ registers.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+
+         <span class="current">
+            Página {{ registers.number }} de {{ registers.paginator.num_pages }}
+        </span> 
+        <!--{% for i in registers.paginator.page_range %}
+          {% if registers.number == i %}
+            <li class="active"><span>{{ i }} <span class="sr-only"></span></span></li>
+          {% else %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}-->
+
+     
+
+
+
+        {% if registers.has_next %}
+            <li><a id="next" href="?page={{ registers.next_page_number }}">&raquo;</a></li>
+        {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+    </ul>
+</center>
+
+<br><br /><br />
+
+  
+
+  
+
 
 {% endblock content %}
-
-
